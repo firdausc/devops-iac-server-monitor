@@ -1,0 +1,9 @@
+Infrastructure as Code (IaC) is the practice of defining and managing infrastructure and application environments through code rather than performing each configuration step manually. These definitions can describe dependency installation, directory creation, configuration settings, and application startup. Storing the instructions as executable code makes the setup process easier to review, maintain, and repeat.
+
+Our project applies this approach to a Python server monitoring application on Windows. The application uses Flask to provide a browser dashboard and psutil to collect CPU, memory, and disk usage from the machine running it. It also provides a metrics endpoint that returns JSON and a health endpoint that indicates whether the application is responding. During development, the dashboard monitors the resources of our own laptop.
+
+The application is the target of the infrastructure automation; it does not itself provision the environment. Our planned Python setup script will prepare a virtual environment, install the dependencies listed in requirements.txt, create necessary directories and configuration, and start the application. Python and Git will be documented as prerequisites. This defines the boundary of our automation, since those tools must already be available before the setup script can run.
+
+IaC offers several benefits. Automated instructions reduce repetitive manual work and help prevent configuration steps from being missed. A shared setup process also makes it easier for team members to prepare comparable environments. Keeping the scripts and dependency list in GitHub allows changes to be reviewed and records contributions from both members.
+
+We additionally use pytest to check the dashboard, health response, and resource metrics. These tests support application validation, while separate setup checks are needed to demonstrate that the environment automation works correctly and can be executed repeatedly.
