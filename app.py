@@ -2,7 +2,7 @@ import os
 import platform
 from pathlib import Path
 
-import psutil   
+import psutil
 from flask import Flask, jsonify, render_template_string
 
 app = Flask(__name__)
