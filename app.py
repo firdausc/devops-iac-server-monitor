@@ -29,19 +29,56 @@ PAGE = """
             padding: 24px;
             border-radius: 12px;
         }
-        li { margin: 18px 0; }
+             .metrics-grid {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+         gap: 16px;
+         margin-top: 24px;
+     }
+     .metric {
+         background: #f3f6fa;
+         border-radius: 10px;
+         padding: 16px;
+     }
+     .metric strong {
+         display: block;
+         font-size: 1.6rem;
+         margin: 8px 0;
+     }
+     .metric progress {
+         width: 100%;
+         accent-color: #2563eb;
+     }
     </style>
 </head>
 <body>
     <div class="card">
         <h1>Server Monitoring Dashboard</h1>
-        <p>Operating system: {{ metrics.operating_system }}</p>
-        <ul>
-            <li>CPU usage: {{ metrics.cpu_percent }}%</li>
-            <li>Memory usage: {{ metrics.memory_percent }}%</li>
-            <li>System disk usage: {{ metrics.disk_percent }}%</li>
-        </ul>
-        <p>Refreshes automatically every 5 seconds.</p>
+             <p>Monitoring this {{ metrics.operating_system }} machine.
+         Refreshes every 5 seconds.</p>
+
+     <div class="metrics-grid">
+         <div class="metric">
+             <label for="cpu">CPU usage</label>
+             <strong>{{ metrics.cpu_percent }}%</strong>
+             <progress id="cpu" value="{{ metrics.cpu_percent }}"
+                 max="100"></progress>
+         </div>
+
+         <div class="metric">
+             <label for="memory">RAM usage</label>
+             <strong>{{ metrics.memory_percent }}%</strong>
+             <progress id="memory" value="{{ metrics.memory_percent }}"
+                 max="100"></progress>
+         </div>
+
+         <div class="metric">
+             <label for="disk">Disk usage</label>
+             <strong>{{ metrics.disk_percent }}%</strong>
+             <progress id="disk" value="{{ metrics.disk_percent }}"
+                 max="100"></progress>
+         </div>
+     </div>
     </div>
 </body>
 </html>
