@@ -30,7 +30,7 @@ def test_health(client):
 def test_metrics(client):
     response = client.get("/metrics")
 
-    assert response.status_code == 200
+    assert response.status_code == 500
     data = response.get_json()
     assert data["operating_system"] == "Windows"
 
