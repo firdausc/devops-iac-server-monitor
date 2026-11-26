@@ -111,7 +111,7 @@ def metrics():
 @app.get("/health")
 def health():
     """Provide a simple application health check."""
-    return jsonify({"status": "ok", "application": "server-monitor"})   
+    return jsonify({"status": "ok", "application": "server-monitor"})  
 
 
 if __name__ == "__main__":
