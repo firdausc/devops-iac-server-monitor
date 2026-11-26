@@ -29,3 +29,29 @@ jobs:
 
       - name: Run application tests
         run: python -m pytest -v
+
+  deploy:
+    name: Deploy with IaC setup script
+    needs: checks
+    runs-on: windows-latest
+
+    steps:
+      - name: Download repository code
+        uses: actions/checkout@v6
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Run IaC setup script
+        run: python setup.py
+
+      - name: Verify deployed application
+        run: |
+          Invoke-RestMethod -Uri http://127.0.0.1:5000/health
+          Invoke-RestMethod -Uri http://127.0.0.1:5000/metrics
+
+      - name: Stop background server after CI verification
+        if: always()
+        run: Stop-Process -Name python -ErrorAction SilentlyContinue
